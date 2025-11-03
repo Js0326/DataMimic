@@ -1,0 +1,182 @@
+🧠 Project Title
+“Synthetic Data Generator for Privacy-Preserving Machine Learning”
+🎯 1. Project Concept
+
+A web-based system that allows users to upload sensitive datasets (like healthcare, finance, etc.) and generates synthetic datasets that maintain the same statistical and ML utility, while protecting privacy.
+
+Users can:
+
+Upload CSV datasets
+
+Choose generation mode (statistical / model-based)
+
+Get downloadable synthetic datasets
+
+Compare synthetic vs. real data using visual analytics and privacy metrics
+
+🌍 2. Project Motivation
+
+In data science, companies often can’t share real data due to privacy laws (GDPR, HIPAA).
+Synthetic data solves this by creating artificial yet realistic data that retains original patterns — ideal for ML model training and sharing.
+
+Key Goals:
+
+Maintain data utility (statistical fidelity)
+
+Preserve privacy (no individual data leakage)
+
+Enable safe dataset sharing
+
+🧩 3. System Architecture (High-Level Overview)
+        ┌───────────────────────────┐
+        │         FRONTEND          │
+        │ React / Next.js Dashboard │
+        │ - Upload CSV              │
+        │ - View Stats & Charts     │
+        │ - Download Synthetic Data │
+        └────────────┬──────────────┘
+                     │ REST API
+        ┌────────────┴──────────────┐
+        │         BACKEND            │
+        │ Flask / FastAPI            │
+        │ - File Upload API          │
+        │ - Model Selection (CTGAN,  │
+        │   Copula, DP-SYNTH)        │
+        │ - Generate Synthetic Data  │
+        │ - Compute Metrics (KS, MI) │
+        └────────────┬──────────────┘
+                     │
+        ┌────────────┴──────────────┐
+        │         DATABASE           │
+        │ PostgreSQL / SQLite        │
+        │ - Store uploaded datasets  │
+        │ - Metadata + logs          │
+        └────────────┬──────────────┘
+                     │
+        ┌────────────┴──────────────┐
+        │        ML ENGINE          │
+        │ - CTGAN (Deep Learning)   │
+        │ - Gaussian Copula Model   │
+        │ - Differential Privacy    │
+        └───────────────────────────┘
+
+👥 4. Team Module Division (6 Members)
+Member	Role	Responsibilities
+1. Data Privacy Researcher	Theoretical & Evaluation	Study privacy metrics (k-anonymity, DP, MI leakage) and design evaluation tests.
+2. ML Model Developer	Model Core	Implement CTGAN / Gaussian Copula using SDV (Synthetic Data Vault) library; tune models.
+3. Data Engineer	Preprocessing	Handle dataset parsing, normalization, categorical encoding/decoding.
+4. Backend Developer	API Layer	Build Flask/FastAPI backend for data upload, generation, and download.
+5. Frontend Developer	Dashboard UI	Create a React/Next.js interface with charts (Recharts/Plotly).
+6. DevOps Engineer	Integration & Deployment	Deploy system using Docker + Render/Vercel + PostgreSQL cloud DB.
+
+✅ Each person has a unique, independent module
+✅ Parallel development possible
+✅ Integration happens through REST API endpoints
+
+📦 5. Dataset Options (Lightweight & Open)
+
+You only need small public datasets for demonstration:
+
+Dataset	Description	Source	Size
+Adult Income Dataset	Predict income based on demographics	UCI Machine Learning Repository
+	~3 MB
+Heart Disease Dataset	Health attributes	Kaggle
+	~1 MB
+Credit Card Fraud	Financial fraud detection	Kaggle
+	~150 MB (can subset)
+Custom CSV	User-uploaded dataset	User Input	Variable
+🧮 6. Model Design
+
+You’ll implement two synthetic data generation methods for comparison:
+
+Model	Description	Library
+Gaussian Copula	Generates tabular data based on probabilistic dependencies	sdv.tabular.GaussianCopula
+CTGAN	Deep learning-based GAN for tabular data	sdv.tabular.CTGAN
+(Optional) DP-GAN	Adds differential privacy to CTGAN	smartnoise-synth / pytorch
+Evaluation Metrics
+
+Statistical Similarity: KS Test, Correlation distance
+
+Machine Learning Utility: Train model on real vs. synthetic → compare accuracy
+
+Privacy Risk: Mutual Information or nearest-neighbor distance
+
+🖥️ 7. Website / Dashboard Design
+Pages & Features
+
+Home Page
+
+Overview of synthetic data privacy
+
+“Upload Dataset” button
+
+Upload Page
+
+File upload (CSV, max 10 MB)
+
+Auto-detect numeric/categorical features
+
+Model Selection Page
+
+Choose model: Gaussian Copula / CTGAN / DP-GAN
+
+Parameters (epochs, DP level, etc.)
+
+Results Dashboard
+
+Show:
+
+Summary stats comparison
+
+Correlation heatmap
+
+Sample synthetic table preview
+
+Utility & privacy scores
+
+Download Page
+
+Download synthetic dataset (.csv)
+
+Report summary (PDF/HTML)
+
+🎨 Frontend Tools: React + Tailwind + Plotly/Recharts + Flask API integration
+
+⚙️ 8. Tech Stack Summary
+Component	Tools
+Frontend	React.js / Next.js, Tailwind CSS, Plotly.js
+Backend	Flask / FastAPI (Python)
+ML Engine	SDV library (CTGAN, Copula), Pandas, Scikit-learn
+Database	PostgreSQL / SQLite
+Deployment	Docker, Render / Vercel
+Version Control	GitHub
+Report Generation	ReportLab / PDFKit
+🧱 9. Development Roadmap (6 Weeks)
+Week	Tasks	Deliverables
+1	Literature review, SDV setup, test datasets	Research report, baseline notebook
+2	Build preprocessing + model training modules	Synthetic data generation prototype
+3	Implement evaluation metrics	Utility & privacy score scripts
+4	Build Flask backend APIs	/upload, /generate, /evaluate endpoints
+5	Develop React frontend	Upload UI + dashboard + charts
+6	Integration + deployment + documentation	Live demo + project report
+🧪 10. Future Scope / Extension Ideas
+
+Add differential privacy noise control (ε parameter).
+
+Extend to image or text synthetic data.
+
+Implement auto model selection based on dataset type.
+
+Add privacy audit dashboard (data leakage detection).
+
+🧾 11. Expected Output / Deliverables
+
+Deployed web app (Flask + React)
+
+Synthetic vs. real data comparison visuals
+
+Auto-generated synthetic dataset (CSV)
+
+Evaluation report (PDF)
+
+GitHub repository + project report

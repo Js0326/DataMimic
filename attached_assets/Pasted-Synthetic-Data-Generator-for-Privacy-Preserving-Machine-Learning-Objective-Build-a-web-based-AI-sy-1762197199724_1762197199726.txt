@@ -1,0 +1,146 @@
+Synthetic Data Generator for Privacy-Preserving Machine Learning
+
+Objective:
+Build a web-based AI system that generates synthetic datasets preserving the statistical properties and ML utility of original datasets while ensuring data privacy and anonymity.
+
+🌐 Project Overview
+
+The system allows users to upload real-world CSV datasets (e.g., health, finance, demographics), choose a generation model, and obtain a synthetic dataset that mimics the real one without exposing sensitive records.
+It provides visual analytics, privacy metrics, and downloadable outputs for easy use in ML training and research.
+
+💻 Key Features
+
+Upload CSV Dataset – User uploads a dataset via web UI
+
+Model Selection – Choose from:
+
+Gaussian Copula (probabilistic model)
+
+CTGAN (deep generative model)
+
+Differentially Private GAN (optional)
+
+Synthetic Data Generation – Backend ML engine creates new synthetic data
+
+Evaluation Dashboard – Compare synthetic vs. real data:
+
+Summary statistics
+
+Correlation heatmap
+
+Distribution comparison plots
+
+Privacy metrics (e.g., Mutual Information, nearest neighbor distance)
+
+Download Center – Download synthetic dataset (.csv) and PDF summary report
+
+Auto Report Generator – Generates performance summary (utility & privacy scores)
+
+⚙️ Technical Specifications
+Component	Technology
+Frontend	React.js / Next.js, Tailwind CSS, Plotly.js or Recharts
+Backend	Flask / FastAPI (Python)
+Machine Learning Engine	SDV (Synthetic Data Vault), Pandas, Scikit-learn, PyTorch
+Database	PostgreSQL / SQLite
+APIs	RESTful (Upload, Generate, Evaluate, Download)
+Deployment	Docker + Render / Vercel
+Version Control	Git & GitHub
+Report Export	ReportLab / PDFKit
+🧩 System Workflow
+
+User uploads dataset →
+
+Backend validates & pre-processes →
+
+Model selected & trained (CTGAN/Copula) →
+
+Synthetic dataset generated →
+
+Evaluation metrics calculated →
+
+Results visualized on dashboard →
+
+User downloads synthetic dataset and report
+
+🧱 Folder Structure
+synthetic-data-generator/
+│
+├── backend/
+│   ├── app.py                # Flask API entry
+│   ├── models/
+│   │   ├── ctgan_model.py
+│   │   ├── copula_model.py
+│   │   └── evaluate.py
+│   ├── utils/
+│   │   ├── preprocess.py
+│   │   └── metrics.py
+│   └── static/reports/
+│
+├── frontend/
+│   ├── pages/
+│   │   ├── index.jsx
+│   │   ├── upload.jsx
+│   │   ├── dashboard.jsx
+│   │   └── download.jsx
+│   ├── components/
+│   │   ├── UploadForm.jsx
+│   │   ├── Charts.jsx
+│   │   └── ReportCard.jsx
+│   └── styles/
+│
+├── database/
+│   └── models.sql
+│
+├── docker-compose.yml
+├── requirements.txt
+└── README.md
+
+🧮 Core APIs
+Endpoint	Method	Description
+/upload	POST	Upload dataset (CSV)
+/generate	POST	Generate synthetic data using selected model
+/evaluate	GET	Compute utility & privacy metrics
+/download	GET	Download synthetic dataset or report
+📊 Dashboard Pages
+
+Home Page: Project intro, key benefits
+
+Upload Dataset: File upload with preview
+
+Model Selection: Choose CTGAN / Copula / DP-GAN
+
+Results Dashboard:
+
+Charts: distributions, correlations
+
+Scores: KS test, accuracy, privacy metrics
+
+Download Page: Download synthetic dataset & PDF summary
+
+👥 Team Roles (6 Members)
+Role	Tasks
+Data Privacy Researcher	Research & implement privacy metrics
+ML Model Developer	Implement CTGAN / Copula models
+Data Engineer	Preprocessing & feature handling
+Backend Developer	Flask API & model endpoints
+Frontend Developer	UI + data visualization
+DevOps Engineer	Deployment & integration (Docker, Vercel/Render)
+🧭 Development Timeline
+Week	Tasks
+1	Research, dataset prep, SDV setup
+2	Model training & validation scripts
+3	Evaluation metric implementation
+4	Backend API creation
+5	Frontend dashboard development
+6	Integration, deployment, testing, documentation
+📈 Expected Output
+
+Functional web app generating synthetic datasets
+
+Comparative visualization dashboard
+
+Downloadable synthetic dataset (.csv)
+
+PDF evaluation report
+
+Deployed live demo link (Render/Vercel)
