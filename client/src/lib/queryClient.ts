@@ -1,6 +1,11 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
 
-const API_BASE = (import.meta as any)?.env?.VITE_API_BASE || "";
+// Base URL for API calls. Prefer VITE_API_BASE, else if running on Vercel without it,
+// fall back to the Render API domain provided for production hosting.
+const runtimeHost = (typeof window !== 'undefined' && window.location?.host) || "";
+const inferredOnVercel = /vercel\.app$/i.test(runtimeHost);
+const FALLBACK_RENDER_API = "https://datamimic.onrender.com"; // runtime fallback
+const API_BASE = (import.meta as any)?.env?.VITE_API_BASE || (inferredOnVercel ? FALLBACK_RENDER_API : "");
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
