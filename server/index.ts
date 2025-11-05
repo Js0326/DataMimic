@@ -4,6 +4,38 @@ import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
 
+// Basic CORS for cross-origin frontend (supports multiple origins and wildcard subdomains)
+app.use((req, res, next) => {
+  const configured = (process.env.ALLOWED_ORIGIN || "*").split(",").map(s => s.trim()).filter(Boolean);
+  const requestOrigin = req.headers.origin as string | undefined;
+
+  let allowOrigin = "*";
+  if (configured.length && requestOrigin && configured[0] !== "*") {
+    const isAllowed = configured.some((entry) => {
+      if (entry === requestOrigin) return true;
+      if (entry.startsWith("*.") && requestOrigin.endsWith(entry.slice(1))) return true; // e.g., *.vercel.app
+      return false;
+    });
+    allowOrigin = isAllowed ? requestOrigin : configured[0];
+  }
+
+  res.header("Access-Control-Allow-Origin", allowOrigin);
+  res.header("Vary", "Origin");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+  );
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 declare module 'http' {
   interface IncomingMessage {
     rawBody: unknown
